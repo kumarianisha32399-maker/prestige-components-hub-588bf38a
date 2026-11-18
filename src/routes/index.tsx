@@ -1,10 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { Navbar } from "@/components/site/Navbar";
-import { Hero, About, Categories, WhyUs } from "@/components/site/Sections";
-import { Catalogue } from "@/components/site/Catalogue";
-import { Gallery } from "@/components/site/Gallery";
-import { Contact } from "@/components/site/Contact";
+import { Hero, Categories } from "@/components/site/Sections";
 import { Footer } from "@/components/site/Footer";
 import { useReveal } from "@/hooks/use-reveal";
 
@@ -37,12 +34,7 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <About />
         <Categories />
-        <Catalogue />
-        <WhyUs />
-        <Gallery />
-        <Contact />
       </main>
       <Footer />
     </>

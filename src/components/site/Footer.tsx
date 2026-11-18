@@ -1,13 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { useStore, KEYS } from "@/lib/store";
 import { Icon } from "../icons";
-import { Brand, NAV, scrollToId } from "./Navbar";
+import { Brand, NAV } from "./Navbar";
 
 export function Footer() {
   const content = useStore<any>(KEYS.content);
   const cats = useStore<any[]>(KEYS.categories).filter((c) => c.status === "active");
   const f = content.footer, c = content.contact;
-  const explore = (id: string) => { window.dispatchEvent(new CustomEvent("npc:filter-category", { detail: id })); scrollToId("products"); };
   return (
     <footer className="bg-navy-deep text-navy-foreground">
       <div className="container-x grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
@@ -18,13 +17,13 @@ export function Footer() {
         <div>
           <h4 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">Quick Links</h4>
           <ul className="mt-5 space-y-2.5 text-sm">
-            {NAV.map((n) => <li key={n.id}><button onClick={() => scrollToId(n.id)} className="text-navy-foreground/70 transition hover:text-accent">{n.label}</button></li>)}
+            {NAV.map((n) => <li key={n.id}><Link to={n.to} className="text-navy-foreground/70 transition hover:text-accent">{n.label}</Link></li>)}
           </ul>
         </div>
         <div>
           <h4 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">Product Categories</h4>
           <ul className="mt-5 space-y-2.5 text-sm">
-            {cats.map((x) => <li key={x.id}><button onClick={() => explore(x.id)} className="text-navy-foreground/70 transition hover:text-accent">{x.name}</button></li>)}
+            {cats.map((x) => <li key={x.id}><Link to="/products" search={{ category: x.id }} className="text-navy-foreground/70 transition hover:text-accent">{x.name}</Link></li>)}
           </ul>
         </div>
         <div>

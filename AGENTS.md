@@ -32,3 +32,4 @@ use the editor.
 ## Application structure
 - Preserve the imported TanStack Start route structure and custom React UI helpers; this keeps the existing website compatible with the hosting template without rebuilding it.
 - Keep demo content in the shared browser store with separate storage keys and hydration-safe subscriptions; all public and admin views must read the same persisted data.
+- Give public content its own leaf routes using the shared SitePage shell, with category selection passed as optional product search input; navigation must open actual pages rather than change homepage hashes.

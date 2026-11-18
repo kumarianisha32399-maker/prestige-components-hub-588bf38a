@@ -1,7 +1,7 @@
 import { useStore, KEYS } from "@/lib/store";
 import { Icon } from "../icons";
 import { SmartImg } from "../ui";
-import { scrollToId } from "./Navbar";
+import { Link } from "@tanstack/react-router";
 
 export function SectionHeading({ eyebrow, title, text, center = false, light = false }: { eyebrow: string; title: string; text?: string; center?: boolean; light?: boolean }) {
   return (
@@ -25,8 +25,8 @@ export function Hero() {
           <h1 className="animate-fade-up delay-1 mt-6 text-4xl font-bold leading-[1.08] text-navy-foreground sm:text-5xl lg:text-[4rem]">{c.heading}</h1>
           <p className="animate-fade-up delay-2 mt-6 max-w-xl text-lg leading-relaxed text-navy-foreground/75">{c.description}</p>
           <div className="animate-fade-up delay-3 mt-10 flex flex-wrap gap-4">
-            <button onClick={() => scrollToId("products")} className="btn btn-accent px-7 py-4">{c.cta1} <Icon name="arrow" className="h-4 w-4" /></button>
-            <button onClick={() => scrollToId("contact")} className="btn btn-glass px-7 py-4">{c.cta2}</button>
+            <Link to="/products" className="btn btn-accent px-7 py-4">{c.cta1} <Icon name="arrow" className="h-4 w-4" /></Link>
+            <Link to="/contact" className="btn btn-glass px-7 py-4">{c.cta2}</Link>
           </div>
           <div className="animate-fade-up delay-3 mt-14 grid max-w-lg grid-cols-2 gap-px overflow-hidden rounded-xl border border-navy-foreground/15 bg-navy-foreground/15">
             {[["bolt", "Electrical Components"], ["kitchen", "Kitchen Components"]].map(([i, t]) => (
@@ -83,10 +83,6 @@ export function About() {
 
 export function Categories() {
   const cats = useStore<any[]>(KEYS.categories).filter((c) => c.status === "active");
-  const explore = (id: string) => {
-    window.dispatchEvent(new CustomEvent("npc:filter-category", { detail: id }));
-    scrollToId("products");
-  };
   return (
     <section id="categories" className="bg-surface py-24 md:py-32">
       <div className="container-x">
@@ -111,7 +107,7 @@ export function Categories() {
                   ))}
                   {(c.types || []).length > 6 && <span className="rounded-full px-3 py-1 text-xs text-accent">+{c.types.length - 6} more</span>}
                 </div>
-                <button onClick={() => explore(c.id)} className="btn btn-accent mt-7">Explore Products <Icon name="arrow" className="h-4 w-4 transition-transform group-hover:translate-x-1" /></button>
+                <Link to="/products" search={{ category: c.id }} className="btn btn-accent mt-7">Explore Products <Icon name="arrow" className="h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
               </div>
             </article>
           ))}
@@ -133,7 +129,7 @@ export function WhyUs() {
       <div className="container-x relative grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeading eyebrow="Why Choose Us" title={w.heading} text={w.intro} light />
-          <button onClick={() => scrollToId("contact")} className="btn btn-accent reveal mt-8">Start an Enquiry <Icon name="arrow" className="h-4 w-4" /></button>
+          <Link to="/contact" className="btn btn-accent reveal mt-8">Start an Enquiry <Icon name="arrow" className="h-4 w-4" /></Link>
         </div>
         <div className="grid gap-px overflow-hidden rounded-2xl border border-navy-foreground/10 bg-navy-foreground/10 sm:grid-cols-2">
           {features.map((f: any, i: number) => (

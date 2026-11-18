@@ -12,7 +12,7 @@ export function enquiryMail(email: string, productName: string, category: string
   );
 }
 
-export function Catalogue() {
+export function Catalogue({ initialCategory }: { initialCategory?: string }) {
   const products = useStore<any[]>(KEYS.products);
   const categories = useStore<any[]>(KEYS.categories);
   const email = useStore<any>(KEYS.content).contact.email;
@@ -20,7 +20,7 @@ export function Catalogue() {
   const catName = (id: string) => categories.find((c) => c.id === id)?.name ?? "Uncategorised";
 
   const [q, setQ] = useState("");
-  const [cat, setCat] = useState("all");
+  const [cat, setCat] = useState(initialCategory ?? "all");
   const [type, setType] = useState("all");
   const [sort, setSort] = useState("featured");
   const [view, setView] = useState<"grid" | "list">("grid");
@@ -28,10 +28,8 @@ export function Catalogue() {
   const [limit, setLimit] = useState(9);
 
   useEffect(() => {
-    const h = (e: Event) => { setCat((e as CustomEvent).detail); setType("all"); };
-    window.addEventListener("npc:filter-category", h);
-    return () => window.removeEventListener("npc:filter-category", h);
-  }, []);
+    setCat(initialCategory ?? "all"); setType("all"); setLimit(9);
+  }, [initialCategory]);
 
   const visible = products.filter((p) => p.active && activeCats.some((c) => c.id === p.categoryId));
   const types = useMemo(() => {
