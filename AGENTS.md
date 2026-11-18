@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application structure
+- Preserve the imported TanStack Start route structure and custom React UI helpers; this keeps the existing website compatible with the hosting template without rebuilding it.
+- Keep demo content in the shared browser store with separate storage keys and hydration-safe subscriptions; all public and admin views must read the same persisted data.
